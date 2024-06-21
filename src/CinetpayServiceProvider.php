@@ -1,6 +1,6 @@
 <?php
 
-namespace VotreNom\Cinetpay;
+namespace Taariam\Cinetpay;
 
 use Illuminate\Support\ServiceProvider;
 
