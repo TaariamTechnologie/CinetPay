@@ -1,17 +1,22 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "taariam/cinetpay",
+    "description": "CinetPay integration for Laravel",
     "keywords": [
-        ":vendor_name",
+        "taariam",
         "laravel",
-        ":package_slug"
+        "mobile",
+        "payment"
+        "Orange money",
+        "Moov Money",
+        "card payment",
+        "cinetpay"
     ],
     "homepage": "https://github.com/:vendor_slug/:package_slug",
     "license": "MIT",
     "authors": [
         {
             "name": ":author_name",
-            "email": "author@domain.com",
+            "email": "taariam@taariam.com",
             "role": "Developer"
         }
     ],
@@ -35,13 +40,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "CinetPay\\Skeleton\\": "src/",
+            "CinetPay\\Skeleton\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "CinetPay\\Skeleton\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -73,10 +78,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "CinetPay\\Skeleton\\SkeletonServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "Skeleton": "CinetPay\\Skeleton\\Facades\\Skeleton"
             }
         }
     },
