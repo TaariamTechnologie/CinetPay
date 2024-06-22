@@ -6,13 +6,12 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
 <!--delete-->
 ---
-This repo can be used to scaffold a Laravel package. Follow these steps to get started:
+# CinetPay Laravel Package
 
-1. Press the "Use this template" button at the top of this repo to create a new repo with the contents of this skeleton.
-2. Run "php ./configure.php" to run a script that will replace all placeholders throughout all the files.
-3. Have fun creating your package.
-4. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
+## Introduction
+
+Ce package permet d'intégrer facilement l'SDK CinetPay dans un projet Laravel. Il fournit une interface simple pour initier et gérer les paiements via CinetPay.
+
 <!--/delete-->
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
@@ -29,7 +28,7 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
+composer require taariam/cinetpay
 ```
 
 You can publish and run the migrations with:
@@ -42,27 +41,71 @@ php artisan migrate
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-config"
+php artisan vendor:publish --tag="cinetpay"
 ```
 
 This is the contents of the published config file:
 
 ```php
 return [
+	'api_key' => env('CINETPAY_API_KEY'),
+    'site_id' => env('CINETPAY_SITE_ID'),
+    'base_url' => env('CINETPAY_BASE_URL', 'https://api.cinetpay.com/v1/'),
 ];
 ```
 
 Optionally, you can publish the views using
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-views"
+php artisan vendor:publish --tag="cinetpay-views"
 ```
 
-## Usage
+## Usage Controller
 
 ```php
-$variable = new VendorName\Skeleton();
-echo $variable->echoPhrase('Hello, VendorName!');
+namespace App\Http\Controllers;
+
+use VotreNom\Cinetpay\Cinetpay;
+
+class PaymentController extends Controller
+{
+    public function initiatePayment()
+    {
+        $cinetpay = app('cinetpay');
+
+        // Configurer le paiement
+        $paymentData = [
+            'amount' => 1000,
+            'transaction_id' => '123456789',
+            'currency' => 'XOF',
+            'description' => 'Payment description',
+            'return_url' => route('payment.success'),
+            'notify_url' => route('payment.notify')
+        ];
+
+        // Initier le paiement
+        $response = $cinetpay->makePayment($paymentData);
+
+        return redirect($response['payment_url']);
+    }
+}
+
+```
+
+## Usage Controller
+
+```php
+use App\Http\Controllers\PaymentController;
+
+Route::get('initiate-payment', [PaymentController::class, 'initiatePayment'])->name('payment.initiate');
+Route::get('payment-success', function () {
+    return 'Payment was successful!';
+})->name('payment.success');
+Route::post('payment-notify', function () {
+    // Logique pour gérer la notification de paiement
+})->name('payment.notify');
+
+
 ```
 
 ## Testing
@@ -85,7 +128,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [:author_name](https://github.com/rikudosama)
 - [All Contributors](../../contributors)
 
 ## License
