@@ -17,7 +17,7 @@ class CinetpayServiceProvider extends ServiceProvider
     {
         // Publier la configuration
         $this->publishes([
-            __DIR__ . '/../config/cinetpay.php' => config_path('cinetpay.php'),
+            __DIR__.'/../config/cinetpay.php' => config_path('cinetpay.php'),
         ]);
     }
 }
